@@ -14,7 +14,9 @@ import time
 import Adafruit_ADS1x15
 from numpy import genfromtxt
 import math
-from combined_expose_collect import *
-from combined_expose_collect import full_run_test
-
-full_run_test()
+from combined_expose_collect2 import *
+from combined_expose_collect2 import full_run_test
+import combined_expose_collect1
+#full_run_test()
+#os.system('combined_expose_collect1.py')
+#combined_expose_collect()

@@ -16,7 +16,7 @@ from numpy import genfromtxt
 import math
 
 def full_run_test():
-
+    #run_test()
     def createFolders(year, month, day):
         ##  Get the path for the folders by year, month and day
         year_path = '/home/pi/Documents/Tests/' + str(year)
@@ -74,8 +74,8 @@ def full_run_test():
         sampling_time = 0.1 # time between samples taken, determines sampling frequency
 
         sensing_delay_time = 9 # time delay after beginning data acquisition till when the sensor is exposed to sample
-        sensing_retract_time = 130 # time allowed before sensor is retracted, no longer exposed to sample
-        duration_of_signal = 300 # time allowed for data acquisition per test run
+        sensing_retract_time = 5 # time allowed before sensor is retracted, no longer exposed to sample
+        duration_of_signal = 5 # time allowed for data acquisition per test run
 
         vacuum_pump = 4 # Broadcom pin 17 (P1 pin 11)
         solenoid = 17 # Broadcom pin 17 (P1 pin 11)
