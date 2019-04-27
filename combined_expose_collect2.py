@@ -73,25 +73,25 @@ def full_run_test():
         continueTest = True
         sampling_time = 0.1 # time between samples taken, determines sampling frequency
 
-        sensing_delay_time = 9 # time delay after beginning data acquisition till when the sensor is exposed to sample
-        sensing_retract_time = 5 # time allowed before sensor is retracted, no longer exposed to sample
-        duration_of_signal = 5 # time allowed for data acquisition per test run
+        sensing_delay_time = 9 # normally 9 time delay after beginning data acquisition till when the sensor is exposed to sample
+        sensing_retract_time = 5 # normally 130 time allowed before sensor is retracted, no longer exposed to sample
+        duration_of_signal = 5 # normally 300 time allowed for data acquisition per test run
 
-        vacuum_pump = 4 # Broadcom pin 17 (P1 pin 11)
-        solenoid = 17 # Broadcom pin 17 (P1 pin 11)
-        linear_actuator_extend = 27 # Broadcom pin 5 (P1 pin 13)
-        linear_actuator_unlock_retract = 22 # Broadcom pin 12 (P1 pin 15)
+##        vacuum_pump = 4 # Broadcom pin 17 (P1 pin 11)
+##        solenoid = 17 # Broadcom pin 17 (P1 pin 11)
+        linear_actuator_extend = 23 # Broadcom pin 5 (P1 pin 13)
+##        linear_actuator_unlock_retract = 22 # Broadcom pin 12 (P1 pin 15)
 
         GPIO.setmode(GPIO.BCM)    # There are two options for this, but just use the board one for now. Don't worry much about it, we can check the definitions when I get back
-        GPIO.setup(vacuum_pump, GPIO.OUT) # Specifies vacuum_pump pin as an output
-        GPIO.setup(solenoid, GPIO.OUT) # Specifies vacuum_pump pin as an output
+##        GPIO.setup(vacuum_pump, GPIO.OUT) # Specifies vacuum_pump pin as an output
+##        GPIO.setup(solenoid, GPIO.OUT) # Specifies vacuum_pump pin as an output
         GPIO.setup(linear_actuator_extend, GPIO.OUT) # Specifies linear_actuator_extend pin as an output
-        GPIO.setup(linear_actuator_unlock_retract, GPIO.OUT) # Specifies linear_actuator_unlock_retract pin as an output
+##        GPIO.setup(linear_actuator_unlock_retract, GPIO.OUT) # Specifies linear_actuator_unlock_retract pin as an output
 
         GPIO.output(linear_actuator_extend, GPIO.LOW)
-        GPIO.output(linear_actuator_unlock_retract, GPIO.LOW)
-        GPIO.output(solenoid, GPIO.LOW)
-        GPIO.output(vacuum_pump, GPIO.LOW)
+##        GPIO.output(linear_actuator_unlock_retract, GPIO.LOW)
+##        GPIO.output(solenoid, GPIO.LOW)
+##        GPIO.output(vacuum_pump, GPIO.LOW)
 
 
         global stopCounter
@@ -138,18 +138,18 @@ def full_run_test():
                     sensing_retract_time + start_time) and ADC_linear_actuator() < extended_state) and (continueTest == True):
         ##            print("extend actuator")
                 GPIO.output(linear_actuator_extend, GPIO.HIGH)  # Actuate linear actuator to extended position
-                GPIO.output(linear_actuator_unlock_retract, GPIO.LOW)  # Energizing both control wires causes linear actuator to extend
+##                GPIO.output(linear_actuator_unlock_retract, GPIO.LOW)  # Energizing both control wires causes linear actuator to extend
 
             # If time is less than 10 seconds or greater than 50 seconds and linear actuator position sensor signal from the ADC indicates an extended state, retract the sensor
             elif (((time.time() < (sensing_delay_time + start_time)) or (
                     time.time() > (sensing_retract_time + start_time))) and ADC_linear_actuator() > retracted_state) and (continueTest == True):
         ##            print("retract actuator")
                 GPIO.output(linear_actuator_unlock_retract,GPIO.HIGH)  # Retract linear actuator to initial position. Energizing only the linear_actuator_unlock_retract wire causes the linear actuator to retract
-                GPIO.output(linear_actuator_extend, GPIO.LOW)
+##                GPIO.output(linear_actuator_extend, GPIO.LOW)
             # Otherwise, keep outputs off
             else:
                 GPIO.output(linear_actuator_unlock_retract, GPIO.LOW)
-                GPIO.output(linear_actuator_extend, GPIO.LOW)
+##                GPIO.output(linear_actuator_extend, GPIO.LOW)
 
         combinedVector = np.column_stack((timeVector, dataVector1, dataVector2, dataVector3, dataVector4))
 

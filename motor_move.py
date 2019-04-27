@@ -8,33 +8,38 @@ GPIO.setmode(GPIO.BOARD) # Use GPIO.BOARD if using Board pin numbers, use GPIO.B
 GPIO.setup(LAPin, GPIO.OUT)
 GPIO.output(LAPin,GPIO.LOW)
 pwm = GPIO.PWM(LAPin, 50) # Set pin 16 to be pulse width modulated at a frequency of 50 Hz
-
+pwm.start(4.6)
 
 def move_motor_out():
-    pwm.start(9)
-    time.sleep(5)
-    pwm.stop()
     print("Moving Motor Out")
+    pwm.ChangeDutyCycle(4.7)
+    time.sleep(5)
+    
 
 def move_motor_in():
-    pwm.start(2.5)
-    time.sleep(5)
-    pwm.stop()
     print("Moving Motor in")
+    pwm.ChangeDutyCycle(9.2)
+    time.sleep(5)
+    
+    
 
 
+move_motor_out()
 
-while True:
-    direc = input("Where do you want to move, in = 1, out = 0")
-    if direc == 0:
-        print("Move Out")
-        move_motor_out()
-    else if direc == 1:
-        print("Move In")
-        move_motor_in()
-    else:
-        print("No Motion")
-        time.sleep(5)
+move_motor_in()
+
+##while True:
+##    direc = input("Where do you want to move, in = 1, out = 0")
+##    print("Output was: ",direc)
+##    if direc == 0:
+##        print("Move Out")
+##        move_motor_out()
+##    elif direc == 1:
+##        print("Move In")
+##        move_motor_in()
+##    else:
+##        print("No Motion")
+##        time.sleep(5)
 
 
 
